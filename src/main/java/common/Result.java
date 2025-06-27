@@ -19,12 +19,18 @@ public sealed interface Result<T, E> {
     private final Object error;
 
     public ResultException(final Object error) {
+      super(null, null, false, false);
       this.error = error;
     }
 
     @SuppressWarnings("unchecked")
     public <E> E getError() {
       return (E) error;
+    }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+      return this;
     }
   }
 
